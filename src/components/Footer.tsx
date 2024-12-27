@@ -31,7 +31,7 @@ export const Footer = () => {
                     </Text>
                     <Text onBackground="neutral-weak">
                         {/* Usage of this template requires attribution. Please don't remove the link to Once UI. */}
-                         Designed by <SmartLink style={{marginLeft: '-0.125rem'}} href="https://sk10codebase.online/">John-@sk10</SmartLink>
+                         Designed by <SmartLink style={{marginLeft: '-0.125rem'}} href="https://portfolio.sk10codebase.online/">John-@sk10</SmartLink>
                     </Text>
                 </Text>
                 <Flex
