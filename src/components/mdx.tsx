@@ -133,20 +133,34 @@ const components = {
     img: createImage as any,
     a: CustomLink as any,
     Table,
-    CodeBlock
+    CodeBlock,
+    li: ({ children }: TextProps) => (
+        <Text 
+            variant="body-default-m"
+            onBackground="neutral-medium"
+            style={{ 
+                display: 'block',
+                marginBottom: '16px',
+                listStyle: 'none'
+            }}>
+            {children}
+        </Text>
+    )
 };
+
 
 type CustomMDXProps = MDXRemoteProps & {
     components?: typeof components;
 };
 
-export function CustomMDX(props: CustomMDXProps) {
-    
+export function CustomMDX(props: MDXRemoteProps) {
     return (
-        // @ts-ignore: Suppressing type error for MDXRemote usage
         <MDXRemote
             {...props}
-            components={{ ...components, ...(props.components || {}) }}
+            // @ts-expect-error: MDX components typing mismatch
+            components={components}
         />
     );
 }
+
+
