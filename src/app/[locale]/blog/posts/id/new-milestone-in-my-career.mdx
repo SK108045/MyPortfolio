@@ -1,33 +1,103 @@
 ---
-title: "Mencapai tonggak baru dalam karier saya"
+title: "Mastering DevOps: A Year of Infrastructure as Code"
 publishedAt: "2024-04-08"
-summary: "Setiap karier adalah perjalanan yang penuh tantangan, pertumbuhan, dan momen-momen penting yang menandai perubahan dalam jalur kita."
+image: "/images/projects/project-01/AWS.png"
+summary: "Deep dive into advanced DevOps practices and Infrastructure as Code implementations that transformed my development pipeline"
+tag: "DevOps"
 ---
 
-Setiap karier adalah perjalanan yang penuh tantangan, pertumbuhan, dan momen-momen penting yang menandai perubahan dalam jalur kita. Hari ini, saya dengan senang hati berbagi bahwa saya telah mencapai tonggak baru dalam karier saya—sebuah pencapaian yang merupakan puncak dari pengalaman masa lalu sekaligus batu loncatan menuju aspirasi masa depan.
+The landscape of modern software development has evolved dramatically, and my journey into advanced DevOps practices has revealed fascinating patterns and methodologies that reshaped how I think about infrastructure. This past year, I've delved deep into Infrastructure as Code (IaC), discovering powerful approaches that go beyond basic automation.
 
-## Refleksi Perjalanan Sejauh Ini
+## The Evolution of GitOps and Policy as Code
 
-Melihat ke belakang, jelas bahwa setiap fase dalam karier saya dibangun di atas fase sebelumnya, membimbing saya ke tempat saya berdiri hari ini. Dari hari-hari awal saya belajar dasar-dasar dan berjuang melalui proyek-proyek yang kompleks, hingga mendapatkan kepercayaan diri melalui pengalaman nyata, setiap langkah telah membentuk keterampilan dan pola pikir saya. Saya belajar bahwa desain dan teknik tidak hanya tentang pemecahan masalah dan kreativitas, tetapi juga tentang ketahanan dan pembelajaran yang berkelanjutan.
+One of the most transformative discoveries in my DevOps journey was my implementation of GitOps with Flux and Argo CD, coupled with Policy as Code using Open Policy Agent (OPA). This combination created a robust governance framework where infrastructure changes automatically align with security policies I defined.
 
-## Apa Arti Tonggak Ini
+<CodeBlock className="my-24"
+    compact
+    codeInstances={[
+        {
+            code: 'opa eval --data policy.rego --input deployment.yaml "data.kubernetes.admission.deny"',
+            label: 'OPA Validation',
+            language: 'bash'
+        },
+    ]}
+    copyButton
+/>
 
-Mencapai tonggak ini bukan hanya tentang kemajuan profesional—ini adalah momen pertumbuhan pribadi. Ini adalah tanda bahwa dedikasi dan hasrat yang telah saya investasikan mulai membuahkan hasil. Baik itu menguasai keterampilan baru, mengambil tanggung jawab kepemimpinan, atau menyelesaikan proyek besar, pencapaian ini mengingatkan saya bahwa ketekunan, rasa ingin tahu, dan cinta terhadap apa yang saya lakukan adalah pendorong utama kesuksesan.
+## Advanced Infrastructure Patterns
 
-## Tantangan yang Membentuk Saya
+My implementation of multi-region deployment using Terraform has unlocked new possibilities in infrastructure management. By defining infrastructure as code and applying region-specific configurations, I achieved greater flexibility in environment management.
 
-Tentu saja, tidak ada perjalanan tanpa rintangan. Ada momen keraguan, prototipe yang gagal, dan hambatan tak terduga yang menguji ketabahan saya. Namun, tantangan-tantangan itu mengajarkan saya pentingnya beradaptasi, berpikir kreatif, dan berkolaborasi. Mereka mendorong saya untuk menjadi lebih baik, berpikir di luar kebiasaan, dan melihat kemunduran bukan sebagai kegagalan, melainkan sebagai peluang untuk belajar dan tumbuh.
+### Implementing Multi-Region Resilience
 
-## Merangkul Peluang Baru
+Designing a multi-region infrastructure that maintains consistency across geographical boundaries was a challenge. Using Terraform with variables for regions, I achieved a consistent deployment across multiple AWS regions:
 
-Tonggak ini juga merupakan kesempatan untuk merangkul tantangan baru dan memperluas wawasan saya. Baik itu menjelajahi teknologi baru yang sedang berkembang, memperdalam minat di bidang tertentu, atau mengambil peran sebagai mentor, saya bersemangat tentang apa yang akan datang. Lanskap teknik dan desain terus berkembang, dan tetap penasaran serta terbuka terhadap ide-ide baru adalah apa yang membuat jalur karier ini begitu memuaskan.
+<CodeBlock className="my-24"
+    compact
+    codeInstances={[
+        {
+            code: 'terraform init\nterraform apply -var="region=us-east-1" -auto-approve',
+            label: 'Terraform Multi-region',
+            language: 'bash'
+        },
+    ]}
+    copyButton
+/>
 
-## Rasa Syukur dan Penghargaan
+## Advanced Observability with AWS X-Ray
 
-Saya tidak bisa melewatkan momen ini tanpa mengakui para mentor, kolega, dan kolaborator yang telah menjadi bagian dari perjalanan ini. Wawasan, dukungan, dan antusiasme mereka sangat berharga. Mencapai tonggak ini sama halnya merupakan bukti pengaruh mereka seperti halnya hasil dari usaha saya sendiri.
+As part of my journey to improve monitoring, I integrated distributed tracing using **AWS X-Ray**. This allowed me to track the flow of requests through my system, helping to identify bottlenecks and optimize performance.
 
-## Melihat ke Depan
+<CodeBlock className="my-24"
+    compact
+    codeInstances={[
+        {
+            code: 'aws xray daemon \\\n  --bind-address 0.0.0.0:2000 \\\n  --region us-east-1',
+            label: 'AWS X-Ray Setup',
+            language: 'bash'
+        },
+    ]}
+    copyButton
+/>
 
-Meskipun saya bangga dengan sejauh mana saya telah melangkah, saya tahu bahwa ini hanyalah satu tonggak dalam perjalanan yang jauh lebih besar. Jalan di depan penuh dengan kemungkinan yang menarik, dan saya bersemangat untuk terus mendorong batasan, mempelajari hal-hal baru, dan berkontribusi pada proyek-proyek yang bermakna. Jika ada satu hal yang saya pelajari sepanjang perjalanan ini, setiap tonggak baru bukanlah akhir, tetapi batu loncatan untuk bab berikutnya.
+## Event-Driven Infrastructure
 
-Terima kasih telah menjadi bagian dari perjalanan ini bersama saya, dan mari kita nantikan petualangan yang akan datang!
+One of my most innovative implementations was developing an event-driven infrastructure pattern where infrastructure changes respond to application behavior. Using **AWS EventBridge** and custom Lambda functions, I created a responsive infrastructure that scales based on complex business logic.
+
+<CodeBlock className="my-24"
+    compact
+    codeInstances={[
+        {
+            code: '{\n  "source": ["my.application"],\n  "detail-type": ["Resource Scaling"],\n  "detail": {\n    "action": "scale-up",\n    "region": "us-east-1"\n  }}',
+            label: 'EventBridge Example',
+            language: 'json'
+        },
+    ]}
+    copyButton
+/>
+
+## Security as Code Integration
+
+My implementation of security as code using **HashiCorp Vault** for secrets management transformed my security approach. I automated secret storage and rotation patterns for more secure and efficient infrastructure management:
+
+<CodeBlock className="my-24"
+    compact
+    codeInstances={[
+        {
+            code: 'vault kv put secret/aws/access-key value=<ACCESS_KEY>\nvault kv put secret/aws/secret-key value=<SECRET_KEY>',
+            label: 'Vault Secrets Management',
+            language: 'bash'
+        },
+    ]}
+    copyButton
+/>
+
+## The Future of Infrastructure
+
+Looking ahead, I'm particularly excited about the emergence of platform engineering and the potential of WebAssembly in infrastructure management. The ability to run infrastructure tooling directly in the browser opens new possibilities for my future projects and development workflow.
+
+## Conclusion
+
+This year of deep diving into Infrastructure as Code has shown me that I'm just scratching the surface of what's possible. My exploration of machine learning for infrastructure optimization and the evolution of declarative infrastructure patterns has opened up exciting possibilities for my future DevOps practices.
+
+The journey continues, and I'm looking forward to exploring emerging patterns in infrastructure management and sharing more discoveries with the community.
