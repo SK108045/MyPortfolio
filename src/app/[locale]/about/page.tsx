@@ -251,11 +251,11 @@ export default function About(
                                             {experience.role}
                                         </Text>
                                         <Flex
-                                            as="ul"
+                                           
                                             direction="column" gap="16">
                                             {experience.achievements.map((achievement: string, index: any) => (
                                                 <Text
-                                                    as="li"
+                                                    
                                                     variant="body-default-m"
                                                     key={`${experience.company}-${index}`}>
                                                     {achievement}
