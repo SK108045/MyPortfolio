@@ -1,4 +1,4 @@
-const baseURL = 'demo.magic-portfolio.com'
+const baseURL = 'my-portfolio-green-eight-68.vercel.app'
 
 // Enable localization
 const i18n = false;

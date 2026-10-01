@@ -1,3 +1,5 @@
+import { notFound } from 'next/navigation';
+import { routes } from '@/app/resources';
 import { Flex } from "@/once-ui/components";
 import MasonryGrid from "@/components/gallery/MasonryGrid";
 import { baseURL, renderContent } from "@/app/resources";
@@ -45,6 +47,7 @@ export default function Gallery(
 	unstable_setRequestLocale(locale);
 	const t = useTranslations();
 	const { gallery, person } = renderContent(t);
+    if (!routes['/gallery']) notFound();
     return (
         <Flex fillWidth>
             <script

@@ -1,11 +1,12 @@
+import { projects } from '@/app/resources/projects';
+import { ProjectDetail } from '@/components/portfolio/ProjectDetail';
 import { notFound } from 'next/navigation'
 import { CustomMDX } from '@/components/mdx'
 import { getPosts } from '@/app/utils/utils'
 import { AvatarGroup, Button, Flex, Heading, SmartImage, Text } from '@/once-ui/components'
 import { baseURL, renderContent } from '@/app/resources';
 import { routing } from '@/i18n/routing';
-import { unstable_setRequestLocale } from 'next-intl/server';
-import { useTranslations } from 'next-intl';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { formatDate } from '@/app/utils/formatDate';
 import ScrollToHash from '@/components/ScrollToHash';
 
@@ -31,10 +32,12 @@ export async function generateStaticParams(): Promise<{ slug: string; locale: st
         })));
     }
 
-    return allPosts;
+    return [...allPosts, ...locales.flatMap(locale => projects.map(project => ({slug: project.slug, locale})))];
 }
 
 export function generateMetadata({ params: { slug, locale } }: WorkParams) {
+	const featured = projects.find(project => project.slug === slug);
+	if (featured) return { title: featured.name, description: featured.summary, openGraph: { title: featured.name, description: featured.summary, images: [`/og?title=${encodeURIComponent(featured.name)}`] } };
 	let post = getPosts(['src', 'app', '[locale]', 'work', 'projects', locale]).find((post) => post.slug === slug)
 	
 	if (!post) {
@@ -79,15 +82,17 @@ export function generateMetadata({ params: { slug, locale } }: WorkParams) {
 	}
 }
 
-export default function Project({ params }: WorkParams) {
+export default async function Project({ params }: WorkParams) {
 	unstable_setRequestLocale(params.locale);
+	const featured = projects.find(project => project.slug === params.slug);
+	if (featured) return <ProjectDetail project={featured} />;
 	let post = getPosts(['src', 'app', '[locale]', 'work', 'projects', params.locale]).find((post) => post.slug === params.slug)
 
 	if (!post) {
 		notFound()
 	}
 
-	const t = useTranslations();
+	const t = await getTranslations();
 	const { person } = renderContent(t);
 
 	const avatars = post.metadata.team?.map((person) => ({
