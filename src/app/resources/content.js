@@ -9,11 +9,11 @@ const person = {
     role:      'Software Developer',
     avatar:    '/images/avatar.jpg',
     location:  'Africa/Nairobi',        // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-    languages: ['English', 'Spanish']  // optional: Leave the array empty if you don't want to display languages
+    languages: ['English']  // optional: Leave the array empty if you don't want to display languages
 }
 
 const newsletter = {
-    display: true,
+    display: false,
     title: <>Subscribe to my Newsletter</>,
     description: <>Stay updated with my latest projects and tech insights.I occasionally write about technology, and share thoughts on software engineering.</>
 }
@@ -45,147 +45,18 @@ const social = [
 
 const home = {
     label: 'Home',
-    title: `sk10`,
-    description: `Portfolio website showcasing my work as a ${person.role}`,
-    headline: <>Hi, I'm John</>,
+    title: `John Wakaba — Software Developer`,
+    description: `Practical web, mobile, business, and data applications by ${person.name}.`,
+    headline: <>Hi, I’m John</>,
     subline: <>I specialize in building robust enterprise applications and scalable microservices. Passionate about clean architecture and delivering high-performance solutions that drive business value.</>
 }
 
 const about = {
     label: 'About',
-    title: 'About me',
-    description: `Meet ${person.name}, ${person.role} from ${person.location}`,
-    tableOfContent: {
-        display: true,
-        subItems: false
-    },
-    avatar: {
-        display: true
-    },
-    calendar: {
-        display: true,
-        link: 'tel:+254713574168'
-    },
-    intro: {
-        display: true,
-        title: 'Introduction',
-        description: <>I specialize in building robust enterprise applications and scalable microservices. Passionate about clean architecture and delivering high-performance solutions that drive business value.</>
-    },
-    work: {
-        display: true,
-        title: 'Work Experience',
-        experiences: [
-            {
-                company: <a href="https://simkafire.com" target="_blank" rel="noopener noreferrer">Simka Technologies Fire Services</a>,
-                timeframe: 'Mar 2024 - Aug 2024',
-                role: 'Software Developer',
-                achievements: [
-                    <>Developed a comprehensive mobile app, web app, and management system to streamline operations, successfully led the migration from a legacy system to modern infrastructure, and maintained both frontend and backend systems for maximum efficiency.</>
-                ],
-                images: [
-                    {
-                        src: '/images/SimkaFire.png',
-                        alt: 'Simka Tech Project',
-                        width: 16,
-                        height: 9,
-                        //link: 'https://simkafire.com'
-                    }
-                ]                
-            },
-            {
-                company: <a href="https://aws.amazon.com" target="_blank" rel="noopener noreferrer">Amazon Web Services (AWS)</a>,
-                timeframe: 'Mar 2024 - Aug 2024',
-                timeframe: 'Aug 2024 - Present', 
-                role: 'Cloud Applications Engineer (Trainee)',
-                achievements: [
-                    <>Built and deployed a scalable Task Management App on AWS using EC2, S3, and RDS with real-time updates via WebSockets and auto-scaling for high performance, implemented a secure VPN solution with OpenVPN Access Server on AWS EC2 (documented on GitHub), and created comprehensive documentation and deployment guides for team knowledge sharing.</>
-                ],
-                images: []
-            },
-            {
-                company: <a href="https://cloud.google.com" target="_blank" rel="noopener noreferrer">Google Cloud</a>,
-                timeframe: 'Mar 2024 - Aug 2024',
-                timeframe: 'Jul 2024 - Dec 2024',
-                role: 'AI Solutions Developer',
-                achievements: [
-                    <>Developed AI-powered solutions on Google Cloud to automate tasks and enhance user experiences, created a Twitter bot using Google Vertex AI that gained 300+ followers in one month, and built an AI Conversational Agent with real-time NLP and audio playback capabilities.</>
-                ],
-                images: []
-            }
-        ]
-    },
-    studies: {
-        display: true,
-        title: 'Studies',
-        institutions: [
-            {
-                name: 'Maseno University',
-                description: <>Currently Studying Computer Science.</>,
-            },
-        ]
-    },
-    technical: {
-        display: true, // set to false to hide this section
-        title: 'Technical skills',
-        skills: [
-            {
-                title: 'Full Stack Development',
-                description: <>Built diverse applications, Task Management Systems, and Real-time Collaborative Tools. Proficient in Node.js, Express, React, Next.js, and various databases including MySQL, MongoDB, and Firebase.</>,
-                // optional: leave the array empty if you don't want to display images
-                images: [
-                    {
-                        src: '/images/projects/project-01/App-optimized.mp4',
-                        alt: 'Project image',
-                        width: 16,
-                        height: 9
-                    },
-
-                ]
-            },
-            {
-                title: 'Cloud & Infrastructure',
-                description: <>Expert in AWS and Google Cloud Platform, specializing in EC2, S3, RDS, and VPN solutions. Implemented high-performance load balancing techniques with NGINX and developed scalable web applications.</>,
-                // optional: leave the array empty if you don't want to display images
-                images: [
-                    {
-                        src: '/images/projects/project-01/Cloud.jpg',
-                        alt: 'Project image',
-                        width: 16,
-                        height: 9
-                    },
-                ]
-            },
-            {
-                title: 'AI & Automation',
-                description: <>Developed AI-powered solutions including conversational agents, Twitter bots using Google Vertex AI, and automated content generation systems. Strong focus on practical AI applications and machine learning integration.</>,
-                // optional: leave the array empty if you don't want to display images
-                images: [
-                    {
-                        src: '/images/projects/project-01/AI.jpg',
-                        alt: 'Project image',
-                        width: 16,
-                        height: 9
-                    },
-                ]
-            },            
-
-            {
-                title: 'DevOps & Security',
-                description: <>Experience in setting up development environments, implementing CI/CD pipelines, and managing server configurations. Strong background in cybersecurity, ethical hacking, and system optimization.</>,
-                // optional: leave the array empty if you don't want to display images
-                images: [
-                    {
-                        src: '/images/projects/project-01/devsecops.jpg',
-                        alt: 'Project image',
-                        width: 16,
-                        height: 9
-                    },
-                ]
-            }
-
-        ]
-    }
-}
+    title: 'About John Wakaba',
+    description: 'Software developer in Nairobi building web, mobile, and business applications.',
+    intro: { display: true, title: 'About me', description: <>I build practical software for everyday business workflows.</> },
+};
 
 const blog = {
     label: 'Blog',

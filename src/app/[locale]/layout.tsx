@@ -1,139 +1,79 @@
 import "@/once-ui/styles/index.scss";
 import "@/once-ui/tokens/index.scss";
-
-import classNames from 'classnames';
-
-import { Footer, Header, RouteGuard } from "@/components";
-import { baseURL, effects, style } from '@/app/resources'
-
-import { Inter } from 'next/font/google'
-import { Source_Code_Pro } from 'next/font/google';
-
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-
+import "@/components/portfolio/portfolio.css";
+import localFont from "next/font/local";
+import { Header, Footer } from "@/components";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
-import { renderContent } from "@/app/resources";
-import { Background, Flex } from "@/once-ui/components";
+import { baseURL } from "@/app/resources";
 
-export async function generateMetadata(
-	{ params: { locale }}: { params: { locale: string }}
-) {
-
-	const t = await getTranslations();
-	const { person, home } = renderContent(t);
-
-	return {
-		metadataBase: new URL(`https://${baseURL}/${locale}`),
-		title: home.title,
-		description: home.description,
-		openGraph: {
-			title: `${person.firstName}'s Portfolio`,
-			description: 'Portfolio website showcasing my work.',
-			url: baseURL,
-			siteName: `${person.firstName}'s Portfolio`,
-			locale: 'en_US',
-			type: 'website',
-		},
-		robots: {
-			index: true,
-			follow: true,
-			googleBot: {
-				index: true,
-				follow: true,
-				'max-video-preview': -1,
-				'max-image-preview': 'large',
-				'max-snippet': -1,
-			},
-		},
-	}
-};
-
-const primary = Inter({
-	variable: '--font-primary',
-	subsets: ['latin'],
-	display: 'swap',
-})
-
-type FontConfig = {
-    variable: string;
-};
-
-/*
-	Replace with code for secondary and tertiary fonts
-	from https://once-ui.com/customize
-*/
-const secondary: FontConfig | undefined = undefined;
-const tertiary: FontConfig | undefined = undefined;
-/*
-*/
-
-const code = Source_Code_Pro({
-	variable: '--font-code',
-	subsets: ['latin'],
-	display: 'swap',
+const primary = localFont({
+  src: "../../../public/fonts/InterVariable.woff2",
+  variable: "--font-primary",
+  weight: "100 900",
+  display: "swap",
 });
 
-interface RootLayoutProps {
-	children: React.ReactNode;
-	params: {locale: string};
-}
+export const metadata = {
+  metadataBase: new URL(`https://${baseURL}`),
+  title: {
+    default: "John Wakaba — Software Developer",
+    template: "%s | John Wakaba",
+  },
+  description:
+    "Software developer in Nairobi building practical business systems, mobile apps, commerce experiences, and data tools.",
+  openGraph: {
+    title: "John Wakaba — Software Developer",
+    description:
+      "Useful software, built with care. Explore my latest projects.",
+    siteName: "John Wakaba",
+    type: "website",
+    images: [{ url: "/og", width: 1200, height: 630 }],
+  },
+  twitter: { card: "summary_large_image", images: ["/og"] },
+  robots: { index: true, follow: true },
+};
 
 export function generateStaticParams() {
-	return routing.locales.map((locale) => ({locale}));
-  }
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export default async function RootLayout({
-	children,
-	params: {locale}
-} : RootLayoutProps) {
-	unstable_setRequestLocale(locale);
-	const messages = await getMessages();
-	return (
-		<NextIntlClientProvider messages={messages}>
-			<Flex
-				as="html" lang="en"
-				background="page"
-				data-neutral={style.neutral} data-brand={style.brand} data-accent={style.accent}
-				data-solid={style.solid} data-solid-style={style.solidStyle}
-				data-theme={style.theme}
-				data-border={style.border}
-				data-surface={style.surface}
-				data-transition={style.transition}
-				className={classNames(
-					primary.variable,
-					secondary ? secondary.variable : '',
-					tertiary ? tertiary.variable : '',
-					code.variable)}>
-				<Flex style={{minHeight: '100vh'}}
-					as="body"
-					fillWidth margin="0" padding="0"
-					direction="column">
-					<Background
-						mask={effects.mask as any}
-						gradient={effects.gradient as any}
-						dots={effects.dots as any}
-						lines={effects.lines as any}/>
-					<Flex
-						fillWidth
-						minHeight="16">
-					</Flex>
-					<Header/>
-					<Flex
-						zIndex={0}
-						fillWidth paddingY="l" paddingX="l"
-						justifyContent="center" flex={1}>
-						<Flex
-							justifyContent="center"
-							fillWidth minHeight="0">
-							<RouteGuard>
-								{children}
-							</RouteGuard>
-						</Flex>
-					</Flex>
-					<Footer/>
-				</Flex>
-			</Flex>
-		</NextIntlClientProvider>
-	);
+  children,
+  params: { locale },
+}: {
+  children: React.ReactNode;
+  params: { locale: string };
+}) {
+  unstable_setRequestLocale(locale);
+  const messages = await getMessages();
+  return (
+    <html
+      lang={locale}
+      className={primary.variable}
+      data-theme="light"
+      data-neutral="sand"
+      data-brand="moss"
+      data-accent="moss"
+      data-solid="contrast"
+      data-solid-style="flat"
+      data-border="conservative"
+      data-surface="filled"
+      data-transition="micro"
+    >
+      <body className="portfolio-body">
+        <NextIntlClientProvider messages={messages}>
+          <a className="skip-link" href="#main-content">
+            Skip to content
+          </a>
+          <Header />
+          <main id="main-content" className="portfolio-main">
+            {children}
+          </main>
+          <Footer />
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  );
 }

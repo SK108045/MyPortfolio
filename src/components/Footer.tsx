@@ -1,55 +1,38 @@
-import { renderContent } from "@/app/resources";
-import { Flex, IconButton, SmartLink, Text } from "@/once-ui/components"
-import { useTranslations } from "next-intl";
-import styles from './Footer.module.scss'
+import Link from "next/link";
+import { FiArrowUpRight } from "react-icons/fi";
 
-export const Footer = () => {
-    const currentYear = new Date().getFullYear();
-
-    const t = useTranslations();
-    const { person, social } = renderContent(t);
-
-    return (
-        <Flex
-            as="footer"
-            position="relative"
-            fillWidth padding="8"
-            justifyContent="center" mobileDirection="column">
-            <Flex
-                className={styles.mobile}
-                fillWidth maxWidth="m" paddingY="8" paddingX="16" gap="16"
-                justifyContent="space-between" alignItems="center">
-                <Text
-                    variant="body-default-s"
-                    onBackground="neutral-strong">
-                    <Text
-                        onBackground="neutral-weak">
-                        © {currentYear} /
-                    </Text>
-                    <Text paddingX="4">
-                        {}
-                    </Text>
-                    <Text onBackground="neutral-weak">
-                        {/* Usage of this template requires attribution. Please don't remove the link to Once UI. */}
-                         Designed by <SmartLink style={{marginLeft: '-0.125rem'}} href="https://sk10codebase.online/">John-@sk10</SmartLink>
-                    </Text>
-                </Text>
-                <Flex
-                    gap="16">
-                    {social.map((item) => (
-                        item.link && (
-                            <IconButton
-                                key={item.name}
-                                href={item.link}
-                                icon={item.icon}
-                                tooltip={item.name}
-                                size="s"
-                                variant="ghost"/>
-                        )
-                    ))}
-                </Flex>
-            </Flex>
-            <Flex height="80" show="s"></Flex>
-        </Flex>
-    )
-}
+export const Footer = () => (
+  <footer className="portfolio-footer">
+    <div>
+      <span>© {new Date().getFullYear()} John Wakaba</span>
+      <span className="footer-location">
+        Built in Nairobi, Kenya <span>↗</span>
+      </span>
+      <div>
+        <a
+          href="https://github.com/SK108045"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub <FiArrowUpRight />
+        </a>
+        <a
+          href="https://www.linkedin.com/in/john-wakaba-linked-in"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn <FiArrowUpRight />
+        </a>
+        <Link href="/#contact">
+          Contact <FiArrowUpRight />
+        </Link>
+      </div>
+    </div>
+    <small>
+      Built with Next.js &{" "}
+      <a href="https://once-ui.com" target="_blank" rel="noopener noreferrer">
+        Once UI
+      </a>
+    </small>
+  </footer>
+);
